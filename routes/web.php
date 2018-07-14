@@ -18,3 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/page/create', 'PageController@index');
+Route::get('/page/edit', 'PageController@edit');
+Route::get('/page/preview', 'PageController@preview');
