@@ -36,13 +36,15 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="/home" >
+        <form action="/page/{{ $page->id }}/service" method="post">
+            <input type="hidden" name="page_id" value="{{ $page->id }}">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="form-group">
-                <label for="exampleFormControlInput1">Name</label>
-                <input type="email" class="form-control" name="name">
+                <label>Name</label>
+                <input type="text" class="form-control" name="name">
             </div>
             <div class="form-group">
-                <label for="exampleFormControlTextarea1">About</label>
+                <label>About</label>
                 <textarea class="form-control" name="about" placeholder="Enter a description" rows="3"></textarea>
             </div>
       </div>

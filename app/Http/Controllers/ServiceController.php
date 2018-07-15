@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
 
 class ServiceController extends Controller
 {
@@ -34,7 +35,14 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = array(
+            'name' => $request->input('name'),
+            'about' => $request->input('about'),
+            'page_id' => $request->input('page_id')
+        );
+        DB::table('page_service')->insert($data);
+
+        return view('page.edit');
     }
 
     /**
