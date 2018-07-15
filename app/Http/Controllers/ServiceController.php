@@ -87,6 +87,8 @@ class ServiceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table("page_service")->where('id', $id)->delete();
+        echo 'done';
+
     }
 }

@@ -1,12 +1,22 @@
 @extends('layouts.app')
 
 @section('content')
+<script>
+     delete(){
+        console.log("works");
+    }
+</script>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ $data['page']->title }}</div>
 
+
+                                        <!-- {{!!Form::open(['action' => ['ServiceController@destroy', '13'], 'method' => 'POST']) !!}}
+                                            {{Form::hidden('_method', 'DELETE')}}
+                                            {{Form::submit('Delete', ['class', 'btn'])}}
+                                        {{!!Form::close() }} -->
                 <div class="card-body">
                     {{ $data['page']->about }}
                     <hr>
@@ -15,9 +25,10 @@
 
                         <?php 
                             foreach ( $data['services'] as $service){
-                                echo '<div class="col-sm-4 card"    >
+                                echo '<div class="col-sm-4 card">
                                     <div class="card-header">'
-                                        .$service->name. '<a href="" style="position:relative;right:-30px;color:red">x</a>
+                                        .$service->name;
+                                 echo ' X      
                                     </div>
                                     <div class="card-body">'. $service->about .'</div>
                                     </div>';
@@ -52,7 +63,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="/page/{{ $data['page']->id }}/service" method="post">
+        <form action="/service" method="post">
             <input type="hidden" name="page_id" value="{{ $data['page']->id }}">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="form-group">
