@@ -42,7 +42,7 @@ class ServiceController extends Controller
         );
         DB::table('page_service')->insert($data);
 
-        return view('page.edit');
+        return redirect('page/'. $request->input('page_id').'/edit');
     }
 
     /**
