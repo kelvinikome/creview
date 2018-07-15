@@ -13,7 +13,13 @@ class PageService extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('page_service', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('about');
+            $table->string('page_id');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +29,6 @@ class PageService extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('page_service');
     }
 }

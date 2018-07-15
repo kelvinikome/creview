@@ -18,6 +18,7 @@ class CreatePagesTable extends Migration
             $table->string('title');
             $table->string('category');
             $table->string('about');
+            $table->string('user_id');
             $table->timestamps();
         });
     }
