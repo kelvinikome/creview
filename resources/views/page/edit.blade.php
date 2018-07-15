@@ -5,10 +5,20 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ $page->title }}</div>
+                <div class="card-header">{{ $data['page']->title }}</div>
 
                 <div class="card-body">
-                    {{ $page->about }}
+                    {{ $data['page']->about }}
+                    <hr>
+                    <div class="">
+                        <?php 
+                            foreach ( $data['services'] as $service){
+                                echo '<div class="card">
+                                    <div class="card-body">'. $service->about .'</div>
+                                </div>';
+                            }
+                        ?>
+                    </div>
                     <hr>
                     <div class="">
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newService">
@@ -36,8 +46,8 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="/page/{{ $page->id }}/service" method="post">
-            <input type="hidden" name="page_id" value="{{ $page->id }}">
+        <form action="/page/{{ $data['page']->id }}/service" method="post">
+            <input type="hidden" name="page_id" value="{{ $data['page']->id }}">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="form-group">
                 <label>Name</label>
