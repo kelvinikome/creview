@@ -57,6 +57,12 @@ class PageController extends Controller
         return view('page.show')->with('page', $page);
     }
 
+    public function getPage($id)
+    {
+        $page = DB::table('pages')->where('title', $id)->first();
+        return view('page.show')->with('page', $page);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
