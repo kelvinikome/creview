@@ -68,7 +68,7 @@ class PageController extends Controller
         
         $data = [
             'page' => DB::table('pages')->where('id', $id)->first(),
-            'services' => DB::table('page_service')->where('page_id', $id)->first()
+            'services' => DB::table('page_service')->where('page_id', $id)->get()
         ];
         return view('page.edit')->with('data', $data);
     }

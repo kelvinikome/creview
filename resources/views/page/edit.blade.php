@@ -11,13 +11,19 @@
                     {{ $data['page']->about }}
                     <hr>
                     <div class="">
+                    <div class="row">
+
                         <?php 
                             foreach ( $data['services'] as $service){
-                                echo '<div class="card">
+                                echo '<div class="col-sm-4 card"    >
+                                    <div class="card-header">'
+                                        .$service->name. '<a href="" style="position:relative;right:-30px;color:red">x</a>
+                                    </div>
                                     <div class="card-body">'. $service->about .'</div>
-                                </div>';
+                                    </div>';
                             }
                         ?>
+                    </div>
                     </div>
                     <hr>
                     <div class="">
