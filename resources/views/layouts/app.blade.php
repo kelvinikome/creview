@@ -19,6 +19,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -34,7 +35,13 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <form class="nav-search-box navbar-form" role="search">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search">
+                                <span><img src="{{ asset('img/search.png') }}" class="search-icon"></span>
+                            </div>
+                            <!-- <button type="submit" class="btn btn-default">Submit</button> -->
+                        </form>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
