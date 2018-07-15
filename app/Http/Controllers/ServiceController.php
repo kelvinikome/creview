@@ -53,7 +53,9 @@ class ServiceController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = DB::table('page_service')->where('id', $id)->first();
+
+        return view('service.show')->with('data', $data);
     }
 
     /**
@@ -87,8 +89,8 @@ class ServiceController extends Controller
      */
     public function destroy($id)
     {
+        $page = DB::table("page_service")->where('id', $id)->first();
         DB::table("page_service")->where('id', $id)->delete();
-        echo 'done';
-
+        return redirect('page/'. $page->page_id.'/edit');
     }
 }
