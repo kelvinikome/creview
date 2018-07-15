@@ -5,10 +5,11 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Page Preview</div>
+                <div class="card-header">{{ $page->title }}</div>
 
                 <div class="card-body">
-                    kjdf
+                    {{ $page->about }}
+                    <hr>
                 </div>
             </div>
         </div>

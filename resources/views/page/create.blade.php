@@ -9,27 +9,26 @@
 
                 <div class="card-body">
                     
-                    <form>
+                    <form action="/page" method="post">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="form-group">
                             <label for="">Page name</label>
-                            <input type="email" class="form-control" id="" placeholder="">
+                            <input type="text" class="form-control" name="title">
                         </div>
                         <div class="form-group">
                             <label for="">Category</label>
-                            <select class="form-control" id="">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
+                            <select class="form-control" name="category">
+                                <option></option>
+                                <option>Business</option>
+                                <option>Entertainment</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="">About</label>
-                            <textarea class="form-control" placeholder="Tell us what your page is about..." id="" rows="3"></textarea>
+                            <textarea class="form-control" placeholder="Tell us what your page is about..." name="about" rows="3"></textarea>
                         </div>
                         <div class="form-group">
-                            <button class="btn btn-primary">Create page</button>
+                            <input type="submit" class="btn btn-primary" value="Create page">
                         </div>
                     </form>
                 </div>

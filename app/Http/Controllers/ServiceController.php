@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
 
-class PageController extends Controller
+class ServiceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +13,7 @@ class PageController extends Controller
      */
     public function index()
     {
-        return view('page.index');
+        //
     }
 
     /**
@@ -24,7 +23,7 @@ class PageController extends Controller
      */
     public function create()
     {
-        return view('page.create');
+        //
     }
 
     /**
@@ -35,14 +34,7 @@ class PageController extends Controller
      */
     public function store(Request $request)
     {
-        $data = array(
-            'title' => $request->input('title'),
-            'about' => $request->input('about'),
-            'category' => $request->input('category')
-        );
-        DB::table('pages')->insert($data);
-
-        echo 'done';
+        //
     }
 
     /**
@@ -53,8 +45,7 @@ class PageController extends Controller
      */
     public function show($id)
     {
-        $page = DB::table('pages')->where('id', $id)->first();
-        return view('page.show')->with('page', $page);
+        //
     }
 
     /**
@@ -65,8 +56,7 @@ class PageController extends Controller
      */
     public function edit($id)
     {
-        $page = DB::table('pages')->where('id', $id)->first();
-        return view('page.edit')->with('page', $page);
+        //
     }
 
     /**
