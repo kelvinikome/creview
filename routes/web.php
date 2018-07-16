@@ -20,7 +20,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('/page', 'PageController');
-Route::resource('page/{page}/product', 'ProductController');
-Route::get('/{page}', 'PageController@getPage');
+Route::resource('/page/{page}/service', 'ServiceController');
+Route::resource('/page/{page}/product', 'ProductController');
 
-Route::resource('/service', 'ServiceController');
+Route::get('/{page}', 'PageController@getPage');
+Route::resource('/page/{page}/post', 'PostController');
