@@ -14,6 +14,10 @@
                         </div>
                     @endif
 
+                    <a href="/page/create">
+                        <button>Create page</button>
+                    </a>
+
                     Pages
                     <ul>
                         <?php 

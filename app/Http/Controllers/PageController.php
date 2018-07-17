@@ -45,7 +45,7 @@ class PageController extends Controller
         );
         DB::table('pages')->insert($data);
 
-        echo 'done';
+        return redirect('/home');
     }
 
     /**
