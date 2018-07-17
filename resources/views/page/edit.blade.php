@@ -6,8 +6,93 @@
         console.log("works");
     }
 </script>
-<div class="container">
+<div class="main-container">
     <div class="row justify-content-center">
+
+
+        <div class="col-md-2 padding-top">
+            <ul class="list-group">
+                <li class="list-group-item"><a href="/{{ $data['page']->id }}/home">Home</a></li>
+                <li class="list-group-item"><a href="/{{ $data['page']->id }}/product">Products</a></li>
+                <li class="list-group-item"><a href="/{{ $data['page']->id }}/service">Services</a></li>
+                <li class="list-group-item"><a href="/{{ $data['page']->id }}/about">About</a></li>
+                <li class="list-group-item"><a href="/{{ $data['page']->id }}/contact">Contact</a></li>
+            </ul>
+        </div>
+        <div class="col-md-7 padding-top">
+            <?php 
+
+                foreach ( $data['posts'] as $post){
+                    echo '
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <img src="assets/img/uFp_tsTJboUY7kue5XAsGAs28.png" height="28px" width="28px">
+                                    <a href="#" class="pull-right">:
+                                    
+                                    <form method="POST" action="/post/'.$post->id.'" accept-charset="UTF-8">
+                                        <input name="_token" type="hidden" value="gPwyFWsCoOjwB1hDLdkHpSftF2EtAbKmPGVt3sff">
+                                        <input name="_method" type="hidden" value="DELETE">
+                                        <input class="btn btn-sm" type="submit" value="Delete">
+                                    </form>
+                                    
+                                    </a> <h4>'.$post->title.'</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="clearfix"></div>
+                                    <hr>
+                                    
+                                    <p>'.$post->content.'</p>
+                                    
+                                    <hr>
+                                    <form>
+                                        <div class="input-group">
+                                            <div class="input-group-btn">
+                                                <button class="btn btn-default">+1</button><button class="btn btn-default"><i class="glyphicon glyphicon-share"></i></button>
+                                            </div>
+                                            <input class="form-control" placeholder="Add a comment.." type="text">
+                                        </div>
+                                    </form>
+                                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>';
+                }
+
+            ?>
+        </div>
+        <div class="col-md-3 padding-top">
+            <div class="card">
+                <div class="card-header">About</div>
+                <div class="card-body">
+                    {{ $data['page']->about }}
+                    <hr>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ $data['page']->title }}</div>

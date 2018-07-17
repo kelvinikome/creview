@@ -14,7 +14,14 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    Pages
+                    <ul>
+                        <?php 
+                            foreach ($pages as $page){
+                                echo '<li><a href="/page/'.$page->id.'">'.$page->title.'</li>';
+                            }
+                        ?>
+                    </ul>
                 </div>
             </div>
         </div>

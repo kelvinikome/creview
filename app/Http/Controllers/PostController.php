@@ -35,7 +35,14 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = array(
+            'title' => $request->input('title'),
+            'content' => $request->input('content'),
+            'page_id' => $request->input('page_id')
+        );
+        DB::table('page_post')->insert($data);
+
+        return redirect('page/'. $request->input('page_id'));
     }
 
     /**
@@ -80,6 +87,8 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $page = DB::table("page_post")->where('id', $id)->first();
+        DB::table("page_post")->where('id', $id)->delete();
+        return redirect('page/'. $page->page_id);
     }
 }

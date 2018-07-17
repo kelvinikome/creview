@@ -11,17 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('/page', 'PageController');
-Route::resource('/service', 'ServiceController');
-Route::resource('/product', 'ProductController');
+Route::resource('/page/{page}/service', 'ServiceController');
+Route::resource('/page/{page}/product', 'ProductController');
 
-Route::get('/{page}', 'PageController@getPage');
 Route::resource('/post', 'PostController');
+;

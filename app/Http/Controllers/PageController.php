@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use DB;
 
 class PageController extends Controller
@@ -14,7 +15,7 @@ class PageController extends Controller
      */
     public function index()
     {
-        echo 'here';
+        
     }
 
     /**
@@ -24,7 +25,8 @@ class PageController extends Controller
      */
     public function create()
     {
-        return view('page.create');
+        $user_id = Auth::id();
+        return view('page.create')->with('user_id', $user_id);
     }
 
     /**
@@ -38,7 +40,8 @@ class PageController extends Controller
         $data = array(
             'title' => $request->input('title'),
             'about' => $request->input('about'),
-            'category' => $request->input('category')
+            'category' => $request->input('category'),
+            'author_id' => $request->input('author_id')
         );
         DB::table('pages')->insert($data);
 
@@ -54,7 +57,13 @@ class PageController extends Controller
     public function show($id)
     {
         $page = DB::table('pages')->where('id', $id)->first();
-        return view('page.show')->with('page', $page);
+        $data = [
+            'page' => $page,
+            'services' => DB::table('page_service')->where('page_id', $id)->get(),
+            'posts' => DB::table('page_post')->where('page_id', $id)->get(),
+            'user' => DB::table('users')->where('id', $page->author_id)->first()
+        ];
+        return view('page.show')->with('data', $data);
     }
 
     public function getPage($id)
@@ -74,7 +83,8 @@ class PageController extends Controller
         
         $data = [
             'page' => DB::table('pages')->where('id', $id)->first(),
-            'services' => DB::table('page_service')->where('page_id', $id)->get()
+            'services' => DB::table('page_service')->where('page_id', $id)->get(),
+            'posts' => DB::table('page_post')->where('page_id', $id)->get()
         ];
         return view('page.edit')->with('data', $data);
     }
