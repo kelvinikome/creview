@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class PageProduct extends Migration
+class Showcase extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class PageProduct extends Migration
      */
     public function up()
     {
-        Schema::create('page_product', function (Blueprint $table) {
+        Schema::create('showcase', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('about');
+            $table->string('category');
+            $table->string('price');
+            $table->string('price_rate');
             $table->string('page_id');
             $table->timestamps();
         });
@@ -29,6 +32,6 @@ class PageProduct extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('page_product');
+        Schema::dropIfExists('showcase');
     }
 }

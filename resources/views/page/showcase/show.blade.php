@@ -7,50 +7,20 @@
         $admin = false;
     }
 ?>
-            <?php 
-            if ($admin)
-                echo '
-                <div class="row justify-content-center">
-                    <div class="">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newService">
-                            add service
-                        </button>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newPost">
-                            new post
-                        </button>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newProduct">
-                            add product
-                        </button>                        
-                    </div>
-                </div>
-                <div class="padding-top"></div>';
-
-foreach ( $data['posts'] as $post){
-    echo '
     <div class="card">
         <div class="card-body">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <img src="assets/img/uFp_tsTJboUY7kue5XAsGAs28.png" height="28px" width="28px">
-                    <a href="'.$data['page']->id.'/'.$post->id.'" class="pull-right">:';
+                    <a href="#" class="pull-right">:';
                     
-    if ($admin)
-        echo '
-                    <form method="POST" action="/post/'.$post->id.'" accept-charset="UTF-8">
-                        <input name="_token" type="hidden" value="gPwyFWsCoOjwB1hDLdkHpSftF2EtAbKmPGVt3sff">
-                        <input name="_method" type="hidden" value="DELETE">
-                        <input class="btn btn-sm" type="submit" value="Delete">
-                    </form>';
-                    
-    echo '
-                    <h4>'.$post->title.'</h4>
-                    </a>
+                    </a> <h4>{{ $data['post']->title }}</h4>
                 </div>
                 <div class="panel-body">
                     <div class="clearfix"></div>
                     <hr>
                     
-                    <p>'.$post->content.'</p>
+                    <p>{{ $data['post']->content }}</p>
                     
                     <hr>
                     <form>
@@ -65,11 +35,7 @@ foreach ( $data['posts'] as $post){
                 </div>
             </div>
         </div>
-    </div>';
-}
-
-            ?>
-
+    </div>
 
 
 

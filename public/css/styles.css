@@ -9,6 +9,7 @@
     border: 4px solid;
     position: absolute;
     height: 80px;
+    margin: 10px;
 }
 .page-header-card {
     background-image: url("https://images.pexels.com/photos/370799/pexels-photo-370799.jpeg?auto=compress&cs=tinysrgb&h=350");

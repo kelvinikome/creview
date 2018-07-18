@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 
-class ServiceController extends Controller
+class ShowcaseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -53,9 +53,11 @@ class ServiceController extends Controller
      */
     public function show($id)
     {
-        $data = DB::table('page_service')->where('id', $id)->first();
-
-        return view('service.show')->with('data', $data);
+        $data = [
+            'page' =>  DB::table('pages')->where('id', $id)->first(),
+            'showcase' => DB::table('showcases')->get()
+        ];
+        return view('page.showcase.show')->with('data', $data);
     }
 
     /**

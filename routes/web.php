@@ -19,9 +19,17 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+// page
+Route::get('/{page}', 'PageController@show');
+Route::get('/{pageId}/about', 'PageController@showAbout');
+
+// showcase
+Route::get('/{pageId}/showcase', 'ShowcaseController@show');
+
 Route::resource('/page', 'PageController');
 Route::resource('/page/{page}/service', 'ServiceController');
 Route::resource('/page/{page}/product', 'ProductController');
 
-Route::resource('/post', 'PostController');
+// post
+Route::get('/{pageId}/{postId}', 'PostController@show');
 ;

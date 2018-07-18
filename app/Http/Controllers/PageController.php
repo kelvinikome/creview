@@ -66,6 +66,18 @@ class PageController extends Controller
         return view('page.show')->with('data', $data);
     }
 
+    public function showAbout($id)
+    {
+        $page = DB::table('pages')->where('id', $id)->first();
+        $data = [
+            'page' => $page,
+            'services' => DB::table('page_service')->where('page_id', $id)->get(),
+            'posts' => DB::table('page_post')->where('page_id', $id)->get(),
+            'user' => DB::table('users')->where('id', $page->author_id)->first()
+        ];
+        return view('page.about')->with('data', $data);
+    }
+
     public function getPage($id)
     {
         $page = DB::table('pages')->where('title', $id)->first();

@@ -51,9 +51,22 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($pageId, $postId)
     {
-        echo 'post';
+        $post = DB::table('page_post')->where([
+            ['id', '=', $postId],
+            ['page_id', '=', $pageId],
+        ])->first();
+
+        $page = DB::table('pages')->where('id', $pageId)->first();
+
+        $data = [
+            'page' => $page,
+            'post' => $post,
+            'user' => DB::table('users')->where('id', $page->author_id)->first()
+        ];
+
+        return view ('page.post.show')->with('data', $data);
     }
 
     /**
