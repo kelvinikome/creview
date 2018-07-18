@@ -53,9 +53,11 @@ class ShowcaseController extends Controller
      */
     public function show($id)
     {
+        $page = DB::table('pages')->where('id', $id)->first();
         $data = [
-            'page' =>  DB::table('pages')->where('id', $id)->first(),
-            'showcase' => DB::table('showcases')->get()
+            'page' =>  $page,
+            'user' => DB::table('users')->where('id', $page->author_id)->first(),
+            'showcase' => DB::table('showcase')->get()
         ];
         return view('page.showcase.show')->with('data', $data);
     }

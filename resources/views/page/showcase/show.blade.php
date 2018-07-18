@@ -14,13 +14,13 @@
                     <img src="assets/img/uFp_tsTJboUY7kue5XAsGAs28.png" height="28px" width="28px">
                     <a href="#" class="pull-right">:';
                     
-                    </a> <h4>{{ $data['post']->title }}</h4>
+                    </a> <h4>jiji}</h4>
                 </div>
                 <div class="panel-body">
                     <div class="clearfix"></div>
                     <hr>
                     
-                    <p>{{ $data['post']->content }}</p>
+                    <p>iuiuiu</p>
                     
                     <hr>
                     <form>

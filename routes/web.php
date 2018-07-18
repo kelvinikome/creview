@@ -26,10 +26,12 @@ Route::get('/{pageId}/about', 'PageController@showAbout');
 // showcase
 Route::get('/{pageId}/showcase', 'ShowcaseController@show');
 
+// post
+Route::get('/{pageId}/post', 'PostController@index');
+Route::get('/{pageId}/post/{postId}', 'PostController@show');
+
 Route::resource('/page', 'PageController');
 Route::resource('/page/{page}/service', 'ServiceController');
 Route::resource('/page/{page}/product', 'ProductController');
 
-// post
-Route::get('/{pageId}/{postId}', 'PostController@show');
 ;

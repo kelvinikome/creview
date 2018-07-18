@@ -32,7 +32,7 @@ foreach ( $data['posts'] as $post){
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <img src="assets/img/uFp_tsTJboUY7kue5XAsGAs28.png" height="28px" width="28px">
-                    <a href="'.$data['page']->id.'/'.$post->id.'" class="pull-right">:';
+                    <a href="'.$data['page']->id.'/post/'.$post->id.'" class="pull-right">:';
                     
     if ($admin)
         echo '

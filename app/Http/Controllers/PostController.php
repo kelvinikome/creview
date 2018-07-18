@@ -12,9 +12,16 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        echo 'here';
+        $page = DB::table('pages')->where('id', $id)->first();
+        $data = [
+            'page' => $page,
+            'services' => DB::table('page_service')->where('page_id', $id)->get(),
+            'posts' => DB::table('page_post')->where('page_id', $id)->get(),
+            'user' => DB::table('users')->where('id', $page->author_id)->first()
+        ];
+        return view('page.show')->with('data', $data);
     }
 
     /**
