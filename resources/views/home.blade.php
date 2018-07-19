@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    <a href="/page/create">
+                    <a href="/home/page/create">
                         <button>Create page</button>
                     </a>
 
@@ -22,7 +22,17 @@
                     <ul>
                         <?php 
                             foreach ($pages as $page){
-                                echo '<li><a href="/'.$page->id.'">'.$page->title.'</li>';
+                                echo '<li><a href="/'.$page->id.'">'.$page->title.'
+                                
+                                                  
+                                        <form action="/home/page/'.$page->id.'" method="post">
+                                            <input type="hidden" name="_token" value="'.csrf_token().'">
+                                            <input type="hidden" name="_method" value="DELETE" >
+                                            <input class="btn btn-sm" type="submit" value="delete " >
+                                        </form>
+                                
+                                
+                                </li>';
                             }
                         ?>
                     </ul>

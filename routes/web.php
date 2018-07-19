@@ -18,13 +18,15 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('/home/page/create', 'PageController');
+Route::resource('/home/page', 'PageController');
 
 // page
 Route::get('/{page}', 'PageController@show');
 Route::get('/{pageId}/about', 'PageController@showAbout');
 
 // showcase
-Route::get('/{pageId}/showcase', 'ShowcaseController@show');
+Route::resource('/{pageId}/showcase', 'ShowcaseController');
 
 // post
 // Route::get('/{pageId}/post', 'PostController@index');
@@ -32,7 +34,7 @@ Route::get('/{pageId}/showcase', 'ShowcaseController@show');
 Route::resource('/{pageId}/post', 'PostController');
 
 // Route::resource('/page/{page}/service', 'ServiceController');
-Route::resource('/page/{page}/product', 'ProductController');
+// Route::resource('/page/{page}/product', 'ProductController');
 
 
 // Route::resource('/home/page', 'PageController');

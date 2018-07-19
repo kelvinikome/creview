@@ -121,6 +121,8 @@ class PageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table("page_post")->where('page_id', $id)->delete();
+        DB::table("pages")->where('id', $id)->delete();
+        return redirect('/home');
     }
 }

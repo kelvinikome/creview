@@ -9,7 +9,7 @@
 
                 <div class="card-body">
                     
-                    <form action="/page" method="post">
+                    <form action="/home/page" method="post">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="author_id" value="{{ $user_id }}">
                         <div class="form-group">
