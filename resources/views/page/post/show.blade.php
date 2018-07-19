@@ -3,18 +3,28 @@
 @section('content')
 <?php 
     $admin = false;
-    if ($data['page']->author_id == $data['user']->id){
-        $admin = false;
-    }
+    if ($data['user'])
+        if ($data['page']->author_id == $data['user']->id){
+            $admin = true;
+        }
 ?>
     <div class="card">
         <div class="card-body">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <img src="assets/img/uFp_tsTJboUY7kue5XAsGAs28.png" height="28px" width="28px">
-                    <a href="#" class="pull-right">:';
-                    
-                    </a> <h4>{{ $data['post']->title }}</h4>
+                    {{ $data['post']->title }}
+                    <?php
+
+                        if ($admin)
+                        echo '                            
+                            <form action="/'.$data['page']->id.'/post/'.$data['post']->id.'" method="post">
+                                <input type="hidden" name="_token" value="'.csrf_token().'">
+                                <input type="hidden" name="_method" value="DELETE" >
+                                <input class="btn btn-sm" type="submit" value="delete " >
+                            </form>
+                            ';
+                    ?>
                 </div>
                 <div class="panel-body">
                     <div class="clearfix"></div>

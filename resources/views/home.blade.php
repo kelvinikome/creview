@@ -22,7 +22,7 @@
                     <ul>
                         <?php 
                             foreach ($pages as $page){
-                                echo '<li><a href="/page/'.$page->id.'">'.$page->title.'</li>';
+                                echo '<li><a href="/'.$page->id.'">'.$page->title.'</li>';
                             }
                         ?>
                     </ul>

@@ -13,15 +13,9 @@
                 echo '
                 <div class="row justify-content-center">
                     <div class="">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newService">
-                            add service
-                        </button>
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newPost">
                             new post
-                        </button>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newProduct">
-                            add product
-                        </button>                        
+                        </button>                     
                     </div>
                 </div>
                 <div class="padding-top"></div>';
@@ -36,12 +30,13 @@ foreach ( $data['posts'] as $post){
                     <a href="/'.$data['page']->id.'/post/'.$post->id.'" class="pull-right">:';
                     
     if ($admin)
-        echo '
-                    <form method="POST" action="/post/'.$post->id.'" accept-charset="UTF-8">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <input name="_method" type="hidden" value="DELETE">
-                        <input class="btn btn-sm" type="submit" value="Delete">
-                    </form>';
+    echo '                            
+        <form action="/'.$data['page']->id.'/post/'.$post->id.'" method="post">
+            <input type="hidden" name="_token" value="'.csrf_token().'">
+            <input type="hidden" name="_method" value="DELETE" >
+            <input class="btn btn-sm" type="submit" value="delete " >
+        </form>
+        ';
                     
     echo '
                     <h4>'.$post->title.'</h4>
@@ -94,7 +89,7 @@ foreach ( $data['posts'] as $post){
         </button>
       </div>
       <div class="modal-body">
-        <form action="/post" method="post">
+        <form action="/{{ $data['page']->id }}/post" method="post">
             <input type="hidden" name="page_id" value="{{ $data['page']->id }}">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="form-group">

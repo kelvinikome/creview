@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use DB;
 
 class PostController extends Controller
@@ -19,9 +20,9 @@ class PostController extends Controller
             'page' => $page,
             'services' => DB::table('page_service')->where('page_id', $id)->get(),
             'posts' => DB::table('page_post')->where('page_id', $id)->get(),
-            'user' => DB::table('users')->where('id', $page->author_id)->first()
+            'user' => Auth::user()
         ];
-        return view('page.show')->with('data', $data);
+        return view('page.post.index')->with('data', $data);
     }
 
     /**
@@ -49,7 +50,7 @@ class PostController extends Controller
         );
         DB::table('page_post')->insert($data);
 
-        return redirect('page/'. $request->input('page_id'));
+        return redirect('/'. $request->input('page_id'));
     }
 
     /**
@@ -70,7 +71,7 @@ class PostController extends Controller
         $data = [
             'page' => $page,
             'post' => $post,
-            'user' => DB::table('users')->where('id', $page->author_id)->first()
+            'user' => Auth::user()
         ];
 
         return view ('page.post.show')->with('data', $data);
@@ -105,10 +106,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($pageId, $id)
     {
-        $page = DB::table("page_post")->where('id', $id)->first();
         DB::table("page_post")->where('id', $id)->delete();
-        return redirect('page/'. $page->page_id);
+        return redirect('/'. $pageId.'/post');
     }
 }
