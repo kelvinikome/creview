@@ -3,11 +3,11 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Create Page</div>
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel">
+                <div class="panel-heading"><h4>Create Page</h4></div>
 
-                <div class="card-body">
+                <div class="panel-body">
                     
                     <form action="/home/page" method="post">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">

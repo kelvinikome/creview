@@ -7,7 +7,7 @@
         <div class="panel panel-default">
           <div class="panel-heading">
               <a href="/home/page/create" class="pull-right">
-                <button>Create page</button>
+                <button class="btn btn-sm btn-primary">Create page</button>
              </a> 
              <h4>My Pages</h4>
           </div>
