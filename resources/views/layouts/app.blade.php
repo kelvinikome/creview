@@ -11,53 +11,61 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/jquery.js') }}" defer></script>
+    <script src="{{ asset('js/bootstrap.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/home') }}">
+
+        <div class="navbar navbar-fixed-top header">
+ 	<div class="col-md-12">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{{ url('/home') }}">
                     {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+            </a>
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse1">
+          <i class="glyphicon glyphicon-search"></i>
+          </button>
+      
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-collapse1">
+          <form class="navbar-form pull-left">
+              <div class="input-group" style="max-width:470px;">
+                <input class="form-control" placeholder="Search" name="srch-term" id="srch-term" type="text">
+                <div class="input-group-btn">
+                  <button class="btn btn-default btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                </div>
+              </div>
+          </form>
+          <ul class="nav navbar-nav navbar-right">
+            @guest
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+            </li>
+            @else
+             <li><a href="{{ url('/home') }}"><i class="glyphicon glyphicon-home"></i></a></li>
+             <li class="">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-bell"></i></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#"><span class="badge pull-right">40</span>Link</a></li>
+                  <li><a href="#"><span class="badge pull-right">2</span>Link</a></li>
+                  <li><a href="#"><span class="badge pull-right">0</span>Link</a></li>
+                  <li><a href="#"><span class="label label-info pull-right">1</span>Link</a></li>
+                  <li><a href="#"><span class="badge pull-right">13</span>Link</a></li>
+                </ul>
+             </li>
+             <li><a class="" href="#" id="btnToggle"><i class="glyphicon glyphicon-th-large"></i></a></li>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-                        <form class="nav-search-box navbar-form" role="search">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search">
-                                <span><img src="{{ asset('img/search.png') }}" class="search-icon"></span>
-                            </div>
-                            <!-- <button type="submit" class="btn btn-default">Submit</button> -->
-                        </form>
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                            </li>
-                        @else
-                            <li class="nav-item">
-                                <a class="nav-link" href="/home">Home</a>
-                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -76,10 +84,11 @@
                                 </div>
                             </li>
                         @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
+           </ul>
+        </div>	
+     </div>	
+</div>
+    <div id="app">
 
         <main class="py-4">
             @yield('content')

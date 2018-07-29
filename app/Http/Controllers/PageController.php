@@ -63,7 +63,7 @@ class PageController extends Controller
             'posts' => DB::table('page_post')->where('page_id', $id)->get(),
             'user' => Auth::user()
         ];
-        return view('page.show')->with('data', $data);
+        return view('page.post.index')->with('data', $data);
     }
 
     public function showAbout($id)

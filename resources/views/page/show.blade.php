@@ -5,7 +5,7 @@
     $admin = false;
     if ($data['user'])
         if ($data['page']->author_id == $data['user']->id){
-            $admin = true;
+            $admin = false;
         }
 ?>
             <?php 
@@ -32,7 +32,6 @@ foreach ( $data['posts'] as $post){
         <div class="card-body">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <img src="assets/img/uFp_tsTJboUY7kue5XAsGAs28.png" height="28px" width="28px">
                     <a href="/'.$data['page']->id.'/post/'.$post->id.'" class="pull-right">:';
                     
     if ($admin)

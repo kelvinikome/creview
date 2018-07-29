@@ -11,53 +11,62 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/jquery.js') }}" defer></script>
+    <script src="{{ asset('js/bootstrap.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/home') }}">
+
+
+        <div class="navbar navbar-fixed-top header">
+ 	<div class="col-md-12">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{{ url('/home') }}">
                     {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+            </a>
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse1">
+          <i class="glyphicon glyphicon-search"></i>
+          </button>
+      
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-collapse1">
+          <form class="navbar-form pull-left">
+              <div class="input-group" style="max-width:470px;">
+                <input class="form-control" placeholder="Search" name="srch-term" id="srch-term" type="text">
+                <div class="input-group-btn">
+                  <button class="btn btn-default btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                </div>
+              </div>
+          </form>
+          <ul class="nav navbar-nav navbar-right">
+            @guest
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+            </li>
+            @else
+             <li><a href="{{ url('/home') }}"><i class="glyphicon glyphicon-home"></i></a></li>
+             <li class="">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-bell"></i></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#"><span class="badge pull-right">40</span>Link</a></li>
+                  <li><a href="#"><span class="badge pull-right">2</span>Link</a></li>
+                  <li><a href="#"><span class="badge pull-right">0</span>Link</a></li>
+                  <li><a href="#"><span class="label label-info pull-right">1</span>Link</a></li>
+                  <li><a href="#"><span class="badge pull-right">13</span>Link</a></li>
+                </ul>
+             </li>
+             <li><a class="" href="#" id="btnToggle"><i class="glyphicon glyphicon-th-large"></i></a></li>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-                        <form class="nav-search-box navbar-form" role="search">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search">
-                                <span><img src="{{ asset('img/search.png') }}" class="search-icon"></span>
-                            </div>
-                            <!-- <button type="submit" class="btn btn-default">Submit</button> -->
-                        </form>
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                            </li>
-                        @else
-                            <li class="nav-item">
-                                <a class="nav-link" href="/home">Home</a>
-                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -76,12 +85,12 @@
                                 </div>
                             </li>
                         @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
+           </ul>
+        </div>	
+     </div>	
+</div>
 
-
+    <div id="app">
 <div class="main-container">
     <div class="row py-4">
         <div class="col-sm-12">
@@ -89,41 +98,13 @@
             <div class="card page-header-card">
                 <div class="">
                     <div class="">
-                        <img alt="" src="https://cmkt-image-prd.global.ssl.fastly.net/0.1.0/ps/2609645/580/406/m1/fpnw/wm0/preview2-.jpg?1493335474&s=19593770943022c83b727874da8bd328" class="page-avatar">
-                        <div class="page-title"><strong>{{ $data['page']->title }}</strong></div>
-                    </div>
-
-                    <div class="page-header-button-group">
-                        <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-primary btn-sm" href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                <div class="hidden-xs">Home</div>
-                            </button>
+                        <div class="col-md-2">
+                            <img alt="" src="https://cmkt-image-prd.global.ssl.fastly.net/0.1.0/ps/2609645/580/406/m1/fpnw/wm0/preview2-.jpg?1493335474&s=19593770943022c83b727874da8bd328" class="page-avatar">
                         </div>
-                        <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-default btn-sm" href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-                                <div class="hidden-xs">menu</div>
-                            </button>
-                        </div>
-                        <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-default btn-sm" href="#tab3" data-toggle="tab"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                                <div class="hidden-xs">menu</div>
-                            </button>
+                        <div class="col-md-5">
+                            <div class="page-title"><strong>{{ $data['page']->title }}</strong></div>
                         </div>
                     </div>
-                </div>
-
-                    <div class="well">
-                <div class="tab-content">
-                    <div class="tab-pane fade in active" id="tab1">
-                    <h3>This is tab 1</h3>
-                    </div>
-                    <div class="tab-pane fade in" id="tab2">
-                    <h3>This is tab 2</h3>
-                    </div>
-                    <div class="tab-pane fade in" id="tab3">
-                    <h3>This is tab 3</h3>
-                    </div>
-                </div>
                 </div>
                 
             </div>
@@ -131,7 +112,7 @@
         <div class="col-md-2 padding-top">
             <ul class="list-group">
                 <li class="list-group-item"><a href="/{{ $data['page']->id }}">Home</a></li>
-                <li class="list-group-item"><a href="/{{ $data['page']->id }}/post">Posts</a></li>
+                <!-- <li class="list-group-item"><a href="/{{ $data['page']->id }}/post">Posts</a></li> -->
                 <li class="list-group-item"><a href="/{{ $data['page']->id }}/showcase">Showcase</a></li>
                 <li class="list-group-item"><a href="/{{ $data['page']->id }}/about">About</a></li>
                 <li class="list-group-item"><a href="/{{ $data['page']->id }}/contact">Contact</a></li>
@@ -141,11 +122,10 @@
             @yield('content')
         </div>
         <div class="col-md-3 padding-top">
-            <div class="card">
-                <div class="card-header">About</div>
-                <div class="card-body">
+            <div class="panel panel-default">
+                <div class="panel-header text-center">About</div>
+                <div class="panel-body">
                     {{ $data['page']->about }}
-                    <hr>
                 </div>
             </div>
         </div>

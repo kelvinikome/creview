@@ -11,7 +11,7 @@
             <?php 
             if ($admin)
                 echo '
-                <div class="row justify-content-center">
+                <div class="row text-center">
                     <div class="">
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newPost">
                             new post
@@ -26,12 +26,11 @@ foreach ( $data['posts'] as $post){
         <div class="card-body">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <img src="assets/img/uFp_tsTJboUY7kue5XAsGAs28.png" height="28px" width="28px">
-                    <a href="/'.$data['page']->id.'/post/'.$post->id.'" class="pull-right">:';
+                    <a href="/'.$data['page']->id.'/post/'.$post->id.'">';
                     
     if ($admin)
     echo '                            
-        <form action="/'.$data['page']->id.'/post/'.$post->id.'" method="post">
+        <form class="pull-right" action="/'.$data['page']->id.'/post/'.$post->id.'" method="post">
             <input type="hidden" name="_token" value="'.csrf_token().'">
             <input type="hidden" name="_method" value="DELETE" >
             <input class="btn btn-sm" type="submit" value="delete " >
@@ -44,7 +43,6 @@ foreach ( $data['posts'] as $post){
                 </div>
                 <div class="panel-body">
                     <div class="clearfix"></div>
-                    <hr>
                     
                     <p>'.$post->content.'</p>
                     

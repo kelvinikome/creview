@@ -4,40 +4,33 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    <a href="/home/page/create">
-                        <button>Create page</button>
-                    </a>
-
-                    Pages
-                    <ul>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+              <a href="/home/page/create" class="pull-right">
+                <button>Create page</button>
+             </a> 
+             <h4>My Pages</h4>
+          </div>
+   		  <div class="panel-body">
+              <div class="list-group">
+                
                         <?php 
                             foreach ($pages as $page){
-                                echo '<li><a href="/'.$page->id.'">'.$page->title.'
+                                echo '<div class="list-group-item"><a href="/'.$page->id.'">'.$page->title.'</a>
                                 
                                                   
-                                        <form action="/home/page/'.$page->id.'" method="post">
+                                        <form class="pull-right" action="/home/page/'.$page->id.'" method="post">
                                             <input type="hidden" name="_token" value="'.csrf_token().'">
                                             <input type="hidden" name="_method" value="DELETE" >
                                             <input class="btn btn-sm" type="submit" value="delete " >
                                         </form>
-                                
-                                
-                                </li>';
+                                      </div>';
                             }
                         ?>
-                    </ul>
-                </div>
+              </div>
             </div>
+   		</div>
+
         </div>
     </div>
 </div>
