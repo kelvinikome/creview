@@ -25,7 +25,7 @@
 <body>
 
         <div class="navbar navbar-fixed-top header">
- 	<div class="col-md-12">
+ 	<div class="container">
         <div class="navbar-header">
             <a class="navbar-brand" href="{{ url('/home') }}">
                     {{ config('app.name', 'Laravel') }}
