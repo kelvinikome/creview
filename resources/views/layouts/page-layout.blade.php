@@ -100,7 +100,7 @@
         <div class="col-md-2 padding-top">
             <ul class="list-group">
                 <li class="list-group-item"><a href="/{{ $data['page']->id }}">Home</a></li>
-                <!-- <li class="list-group-item"><a href="/{{ $data['page']->id }}/post">Posts</a></li> -->
+                <li class="list-group-item"><a href="/{{ $data['page']->id }}/post">Posts</a></li>
                 <li class="list-group-item"><a href="/{{ $data['page']->id }}/showcase">Showcase</a></li>
                 <li class="list-group-item"><a href="/{{ $data['page']->id }}/about">About</a></li>
                 <li class="list-group-item"><a href="/{{ $data['page']->id }}/contact">Contact</a></li>
