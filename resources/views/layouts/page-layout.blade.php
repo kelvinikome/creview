@@ -94,16 +94,16 @@
         <section class="header">
             <div class="container">
                 <span class="title">{{ $data['page']->title }}</span><br>
-                <span class="tagline">{{ $data['page']->about }}</span>
+                <span class="tagline">{{ $data['page']->tagline }}</span>
             </div>
         </section>
         <div class="col-md-2 padding-top">
             <ul class="list-group">
-                <li class="list-group-item"><a href="/{{ $data['page']->id }}">Home</a></li>
-                <li class="list-group-item"><a href="/{{ $data['page']->id }}/post">Posts</a></li>
-                <li class="list-group-item"><a href="/{{ $data['page']->id }}/showcase">Showcase</a></li>
-                <li class="list-group-item"><a href="/{{ $data['page']->id }}/about">About</a></li>
-                <li class="list-group-item"><a href="/{{ $data['page']->id }}/contact">Contact</a></li>
+                <li class="list-group-item"><a href="/{{ $data['page']->uri }}">Home</a></li>
+                <li class="list-group-item"><a href="/{{ $data['page']->uri }}/post">Posts</a></li>
+                <!-- <li class="list-group-item"><a href="/{{ $data['page']->id }}/showcase">Showcase</a></li> -->
+                <li class="list-group-item"><a href="/{{ $data['page']->uri }}/about">About</a></li>
+                <li class="list-group-item"><a href="/{{ $data['page']->uri }}/contact">Contact</a></li>
             </ul>
         </div>
         <div class="col-md-7 padding-top">
@@ -133,10 +133,10 @@
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newPost">
                                 new post
                             </button>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newPost">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="">
                                 Edit page
                             </button>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newPost">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="">
                                 Page settings
                             </button>                     
                         </div>
@@ -163,42 +163,10 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="/{{ $data['page']->id }}/post" method="post">
+        <form action="/{{ $data['page']->uri }}/post" method="post">
             <input type="hidden" name="page_id" value="{{ $data['page']->id }}">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            <div class="form-group">
-                <label>Title</label>
-                <input type="text" class="form-control" name="title">
-            </div>
-            <div class="form-group">
-                <label>Content</label>
-                <textarea class="form-control" name="content" placeholder="Enter a description" rows="3"></textarea>
-            </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <input type="submit" class="btn btn-primary" value="Save changes">
-      </div>
-        </form>
-    </div>
-  </div>
-</div>
-
-
-<!-- new post -->
-<div class="modal fade" id="newPage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Create Page</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form action="/{{ $data['page']->id }}/post" method="post">
-            <input type="hidden" name="page_id" value="{{ $data['page']->id }}">
-            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="uri" value="{{ $data['page']->uri }}">
             <div class="form-group">
                 <label>Title</label>
                 <input type="text" class="form-control" name="title">

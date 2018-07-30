@@ -37,8 +37,11 @@ class PageController extends Controller
      */
     public function store(Request $request)
     {
+        $page_uri = lcfirst(str_replace(' ','',$request->input('title')));
         $data = array(
             'title' => $request->input('title'),
+            'uri' => $page_uri,
+            'tagline' => $request->input('tagline'),
             'about' => $request->input('about'),
             'category' => $request->input('category'),
             'author_id' => $request->input('author_id')
@@ -56,11 +59,10 @@ class PageController extends Controller
      */
     public function show($id)
     {
-        $page = DB::table('pages')->where('id', $id)->first();
+        $page = DB::table('pages')->where('uri', $id)->first();
         $data = [
             'page' => $page,
-            'services' => DB::table('page_service')->where('page_id', $id)->get(),
-            'posts' => DB::table('page_post')->where('page_id', $id)->get(),
+            'posts' => DB::table('page_post')->where('page_id', $page->id)->get(),
             'user' => Auth::user()
         ];
         return view('page.post.index')->with('data', $data);
@@ -68,11 +70,10 @@ class PageController extends Controller
 
     public function showAbout($id)
     {
-        $page = DB::table('pages')->where('id', $id)->first();
+        $page = DB::table('pages')->where('uri', $id)->first();
         $data = [
             'page' => $page,
-            'services' => DB::table('page_service')->where('page_id', $id)->get(),
-            'posts' => DB::table('page_post')->where('page_id', $id)->get(),
+            'posts' => DB::table('page_post')->where('page_id', $page->id)->get(),
             'user' => DB::table('users')->where('id', $page->author_id)->first()
         ];
         return view('page.about')->with('data', $data);
@@ -80,7 +81,7 @@ class PageController extends Controller
 
     public function getPage($id)
     {
-        $page = DB::table('pages')->where('title', $id)->first();
+        $page = DB::table('pages')->where('uri', $id)->first();
         return view('page.show')->with('page', $page);
     }
 
@@ -94,9 +95,9 @@ class PageController extends Controller
     {
         
         $data = [
-            'page' => DB::table('pages')->where('id', $id)->first(),
-            'services' => DB::table('page_service')->where('page_id', $id)->get(),
-            'posts' => DB::table('page_post')->where('page_id', $id)->get()
+            'page' => DB::table('pages')->where('uri', $id)->first(),
+            'services' => DB::table('page_service')->where('page_id', $page->id)->get(),
+            'posts' => DB::table('page_post')->where('page_id', $page->id)->get()
         ];
         return view('page.edit')->with('data', $data);
     }

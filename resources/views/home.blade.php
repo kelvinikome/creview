@@ -16,7 +16,7 @@
                 
                         <?php 
                             foreach ($pages as $page){
-                                echo '<div class="list-group-item"><a href="/'.$page->id.'">'.$page->title.'</a>
+                                echo '<div class="list-group-item"><a href="/'.$page->uri.'">'.$page->title.'</a>
                                 
                                                   
                                         <form class="pull-right" action="/home/page/'.$page->id.'" method="post">

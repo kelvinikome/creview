@@ -15,10 +15,9 @@ class PostController extends Controller
      */
     public function index($id)
     {
-        $page = DB::table('pages')->where('id', $id)->first();
+        $page = DB::table('pages')->where('uri', $id)->first();
         $data = [
             'page' => $page,
-            'services' => DB::table('page_service')->where('page_id', $id)->get(),
             'posts' => DB::table('page_post')->where('page_id', $id)->get(),
             'user' => Auth::user()
         ];
@@ -50,7 +49,7 @@ class PostController extends Controller
         );
         DB::table('page_post')->insert($data);
 
-        return redirect('/'. $request->input('page_id'));
+        return redirect('/'. $request->input('uri'));
     }
 
     /**

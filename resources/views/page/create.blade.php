@@ -29,6 +29,10 @@
                             <textarea class="form-control" placeholder="Tell us what your page is about..." name="about" rows="3"></textarea>
                         </div>
                         <div class="form-group">
+                            <label for="">Tagline</label>
+                            <textarea class="form-control" placeholder="a catchphrase or slogan, especially as used in advertising..." name="tagline" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
                             <input type="submit" class="btn btn-primary" value="Create page">
                         </div>
                     </form>
