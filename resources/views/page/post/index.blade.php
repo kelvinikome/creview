@@ -9,18 +9,7 @@
         }
 ?>
             <?php 
-            //if ($admin)
-            if (false)
-                echo '
-                <div class="row text-center">
-                    <div class="">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newPost">
-                            new post
-                        </button>                     
-                    </div>
-                </div>
-                <div class="padding-top"></div>';
-
+           
 foreach ( $data['posts'] as $post){
     echo '
     <div class="card">
@@ -76,36 +65,4 @@ foreach ( $data['posts'] as $post){
 
 
 @endsection
-
-<!-- new post -->
-<div class="modal fade" id="newPost" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Create Post</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form action="/{{ $data['page']->id }}/post" method="post">
-            <input type="hidden" name="page_id" value="{{ $data['page']->id }}">
-            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            <div class="form-group">
-                <label>Title</label>
-                <input type="text" class="form-control" name="title">
-            </div>
-            <div class="form-group">
-                <label>Content</label>
-                <textarea class="form-control" name="content" placeholder="Enter a description" rows="3"></textarea>
-            </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <input type="submit" class="btn btn-primary" value="Save changes">
-      </div>
-        </form>
-    </div>
-  </div>
-</div>
 

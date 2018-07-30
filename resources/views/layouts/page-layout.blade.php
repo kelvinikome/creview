@@ -110,12 +110,40 @@
             @yield('content')
         </div>
         <div class="col-md-3 padding-top">
-            <div class="panel panel-default">
-                <div class="panel-header text-center">About</div>
-                <div class="panel-body">
-                    {{ $data['page']->about }}
-                </div>
+            <?php 
+            
+            
+             if ($admin)
+            echo '
+            <div class="well"> 
+                 <form class="form-horizontal" role="form">
+                  <h4>Quick post</h4>
+                   <div class="form-group" style="padding:14px;">
+                    <textarea class="form-control" placeholder="Post your question"></textarea>
+                  </div>
+                  
+                   <button class="btn btn-success pull-right" type="button">Post</button><ul class="list-inline"><li><a href="#"><i class="glyphicon glyphicon-align-left"></i></a></li><li><a href="#"><i class="glyphicon glyphicon-align-center"></i></a></li><li><a href="#"><i class="glyphicon glyphicon-align-right"></i></a></li></ul>
+                </form>
             </div>
+            <div class="panel panel-default">
+                <div class="panel-heading text-center"></div>
+                <div class="panel-body">
+                    <div class="row text-center">
+                        <div class="">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newPost">
+                                new post
+                            </button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newPost">
+                                Edit page
+                            </button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newPost">
+                                Page settings
+                            </button>                     
+                        </div>
+                    </div>
+                </div>
+            </div>';
+            ?>
         </div>
         
     </div>
@@ -124,6 +152,70 @@
 
 
 
+<!-- new post -->
+<div class="modal fade" id="newPost" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Create Post</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/{{ $data['page']->id }}/post" method="post">
+            <input type="hidden" name="page_id" value="{{ $data['page']->id }}">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" class="form-control" name="title">
+            </div>
+            <div class="form-group">
+                <label>Content</label>
+                <textarea class="form-control" name="content" placeholder="Enter a description" rows="3"></textarea>
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <input type="submit" class="btn btn-primary" value="Save changes">
+      </div>
+        </form>
+    </div>
+  </div>
+</div>
+
+
+<!-- new post -->
+<div class="modal fade" id="newPage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Create Page</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/{{ $data['page']->id }}/post" method="post">
+            <input type="hidden" name="page_id" value="{{ $data['page']->id }}">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" class="form-control" name="title">
+            </div>
+            <div class="form-group">
+                <label>Content</label>
+                <textarea class="form-control" name="content" placeholder="Enter a description" rows="3"></textarea>
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <input type="submit" class="btn btn-primary" value="Save changes">
+      </div>
+        </form>
+    </div>
+  </div>
+</div>
 
 
     </div>
