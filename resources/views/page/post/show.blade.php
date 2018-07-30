@@ -77,7 +77,7 @@ echo '
 
 <?php
 
-    foreach ($data['comments'] as $comment)
+    foreach ($data['comments'] as $comment){
         echo '
         
             <div class="media">
@@ -88,10 +88,22 @@ echo '
                 </div>
                 <div class="media-body">
                 <a href="#" class="anchor-username"><h4 class="media-heading">'.$comment->content.'</h4></a> 
+                ';
+                if ($admin)
+echo '                            
+    <form class="pull-right" action="/'.$data['page']->id.'/post/'.$data['post']->id.'/comment/'.$comment->id.'" method="post">
+        <input type="hidden" name="_token" value="'.csrf_token().'">
+        <input type="hidden" name="_method" value="DELETE" >
+        <input class="btn btn-sm" type="submit" value="delete " >
+    </form>
+    ';
+
+                echo '
                 <a href="#" class="anchor-time">51 mins</a>
                 </div>
             </div>
         ';
+    }
 ?>
                        </div>
                    </div>

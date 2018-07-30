@@ -85,8 +85,11 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($pageId, $postId, $id)
     {
-        //
+        $comment = DB::table('page_comment')->where('id', $id)->first();
+        DB::table("page_comment")->where('id', $id)->delete();
+        //echo $comment->page_id;
+        return redirect('/'. $comment->page_id.'/post/'.$comment->post_id);
     }
 }
