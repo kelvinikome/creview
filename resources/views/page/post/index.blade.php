@@ -9,7 +9,8 @@
         }
 ?>
             <?php 
-            if ($admin)
+            //if ($admin)
+            if (false)
                 echo '
                 <div class="row text-center">
                     <div class="">

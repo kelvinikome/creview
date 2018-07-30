@@ -134,5 +134,20 @@ h3,h4,h5 {
     margin: auto;
 }
 #app {
-    padding-top: 100px;
+    padding-top: 50px;
+}
+.page {
+
+}
+.page .title {
+    padding-top: 200px;
+    font-size: 30px;
+}
+.page .tagline {
+}
+.page .header {
+    color: white;
+    background-color: #4285f4;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }

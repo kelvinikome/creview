@@ -24,7 +24,6 @@
 </head>
 <body>
 
-
         <div class="navbar navbar-fixed-top header">
  	<div class="container">
         <div class="navbar-header">
@@ -89,26 +88,15 @@
         </div>	
      </div>	
 </div>
-
     <div id="app">
-<div class="main-container">
-    <div class="row py-4">
-        <div class="col-sm-12">
-
-            <div class="card page-header-card">
-                <div class="">
-                    <div class="">
-                        <div class="col-md-2">
-                            <img alt="" src="https://cmkt-image-prd.global.ssl.fastly.net/0.1.0/ps/2609645/580/406/m1/fpnw/wm0/preview2-.jpg?1493335474&s=19593770943022c83b727874da8bd328" class="page-avatar">
-                        </div>
-                        <div class="col-md-5">
-                            <div class="page-title"><strong>{{ $data['page']->title }}</strong></div>
-                        </div>
-                    </div>
-                </div>
-                
+<div class="page">
+    <div class="">
+        <section class="header">
+            <div class="container">
+                <span class="title">{{ $data['page']->title }}</span><br>
+                <span class="tagline">{{ $data['page']->about }}</span>
             </div>
-        </div>
+        </section>
         <div class="col-md-2 padding-top">
             <ul class="list-group">
                 <li class="list-group-item"><a href="/{{ $data['page']->id }}">Home</a></li>
