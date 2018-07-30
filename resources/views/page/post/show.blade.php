@@ -8,43 +8,97 @@
             $admin = true;
         }
 ?>
-    <div class="card">
-        <div class="card-body">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    {{ $data['post']->title }}
+
+
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+               <section class="post-heading">
+                    <div class="row">
+                        <div class="col-md-11">
+                            <div class="media">
+                              <div class="media-left">
+                                <a href="#">
+                                  <img class="media-object photo-profile" src="http://0.gravatar.com/avatar/38d618563e55e6082adf4c8f8c13f3e4?s=40&d=mm&r=g" width="40" height="40" alt="...">
+                                </a>
+                              </div>
+                              <div class="media-body">
+                                <a href="#" class="anchor-username"><h4 class="media-heading">{{ $data['post']->title }}</h4></a> 
+                                <a href="#" class="anchor-time">51 mins</a>
+                              </div>
+                            </div>
+                        </div>
+                         <div class="col-md-1">
+                                
                     <?php
 
-                        if ($admin)
-                        echo '                            
-                            <form class="pull-right" action="/'.$data['page']->id.'/post/'.$data['post']->id.'" method="post">
-                                <input type="hidden" name="_token" value="'.csrf_token().'">
-                                <input type="hidden" name="_method" value="DELETE" >
-                                <input class="btn btn-sm" type="submit" value="delete " >
-                            </form>
-                            ';
-                    ?>
-                </div>
-                <div class="panel-body">
-                    <div class="clearfix"></div>
-                    <hr>
-                    
+if ($admin)
+echo '                            
+    <form class="pull-right" action="/'.$data['page']->id.'/post/'.$data['post']->id.'" method="post">
+        <input type="hidden" name="_token" value="'.csrf_token().'">
+        <input type="hidden" name="_method" value="DELETE" >
+        <input class="btn btn-sm" type="submit" value="delete " >
+    </form>
+    ';
+?>
+                         </div>
+                    </div>             
+               </section>
+               <section class="post-body">
                     <p>{{ $data['post']->content }}</p>
-                    
-                    <hr>
-                    <form>
-                        <div class="input-group">
-                            <div class="input-group-btn">
-                                <button class="btn btn-default">+1</button><button class="btn btn-default"><i class="glyphicon glyphicon-share"></i></button>
-                            </div>
-                            <input class="form-control" placeholder="Add a comment.." type="text">
-                        </div>
-                    </form>
-                                
+               </section>
+               <section class="post-footer">
+                   <hr>
+                   <div class="post-footer-option">
+                        <ul class="row list-unstyled">
+                            <li><a href="#"><i class="glyphicon glyphicon-thumbs-up"></i> Like</a></li>
+                            <li><a href="#"><i class="glyphicon glyphicon-share-alt"></i> Share</a></li>
+                            <li>                                
+                                <form action="/{{ $data['page']->id }}/post/{{ $data['post']->id }}/comment" method="post">
+                                    <div class="input-group">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <input type="hidden" name="page_id" value="{{ $data['page']->id }}">
+                                        <input type="hidden" name="post_id" value="{{ $data['post']->id }}">
+                                        <input class="form-control" placeholder="Add a comment.." type="text" name="content">
+                                        <div class="input-group-btn">
+                                            <button class="btn">Comment</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </li>
+                        </ul>
+                   </div>
+                   <div class="post-footer-comment-wrapper">
+                       <div class="comment-form">
+                           
+                       </div>
+                       <div class="comment">
+                           <label>Comments</label>
+
+<?php
+
+    foreach ($data['comments'] as $comment)
+        echo '
+        
+            <div class="media">
+                <div class="media-left">
+                <a href="#">
+                    <img class="media-object photo-profile" src="http://0.gravatar.com/avatar/38d618563e55e6082adf4c8f8c13f3e4?s=40&d=mm&r=g" width="32" height="32" alt="...">
+                </a>
+                </div>
+                <div class="media-body">
+                <a href="#" class="anchor-username"><h4 class="media-heading">'.$comment->content.'</h4></a> 
+                <a href="#" class="anchor-time">51 mins</a>
                 </div>
             </div>
+        ';
+?>
+                       </div>
+                   </div>
+               </section>
+            </div>
         </div>
-    </div>
+
 
 
 

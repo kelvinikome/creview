@@ -28,16 +28,5 @@ Route::get('/{pageId}/about', 'PageController@showAbout');
 // showcase
 Route::resource('/{pageId}/showcase', 'ShowcaseController');
 
-// post
-// Route::get('/{pageId}/post', 'PostController@index');
-// Route::get('/{pageId}/post/{postId}', 'PostController@show');
 Route::resource('/{pageId}/post', 'PostController');
-
-// Route::resource('/page/{page}/service', 'ServiceController');
-// Route::resource('/page/{page}/product', 'ProductController');
-
-
-// Route::resource('/home/page', 'PageController');
-// Route::resource('/home/page/{page}/post', 'PostController');
-
-;
+Route::resource('/{pageId}/post/{postId}/comment', 'CommentController');

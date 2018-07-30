@@ -67,10 +67,16 @@ class PostController extends Controller
         ])->first();
 
         $page = DB::table('pages')->where('id', $pageId)->first();
+        
+        $comments = DB::table('page_comment')->where([
+            ['post_id', '=', $postId],
+            ['page_id', '=', $pageId],
+        ])->get();
 
         $data = [
             'page' => $page,
             'post' => $post,
+            'comments' => $comments,
             'user' => Auth::user()
         ];
 

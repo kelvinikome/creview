@@ -36,15 +36,6 @@ foreach ( $data['posts'] as $post){
                     
                     <p>'.$post->content.'</p>
                     
-                    <hr>
-                    <form>
-                        <div class="input-group">
-                            <div class="input-group-btn">
-                                <button class="btn btn-default">+1</button><button class="btn btn-default"><i class="glyphicon glyphicon-share"></i></button>
-                            </div>
-                            <input class="form-control" placeholder="Add a comment.." type="text">
-                        </div>
-                    </form>
                                 
                 </div>
             </div>
