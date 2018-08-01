@@ -16,11 +16,11 @@ foreach ( $data['posts'] as $post){
         <div class="card-body">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <a href="/'.$data['page']->id.'/post/'.$post->id.'">';
+                    <a href="/'.$data['page']->uri.'/post/'.$post->uri.'">';
                     
     if ($admin)
     echo '                            
-        <form class="pull-right" action="/'.$data['page']->id.'/post/'.$post->id.'" method="post">
+        <form class="pull-right" action="/'.$data['page']->uri.'/post/'.$post->uri.'" method="post">
             <input type="hidden" name="_token" value="'.csrf_token().'">
             <input type="hidden" name="_method" value="DELETE" >
             <input class="btn btn-sm" type="submit" value="delete " >

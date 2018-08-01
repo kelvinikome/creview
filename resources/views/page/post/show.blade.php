@@ -23,7 +23,7 @@
                                 </a>
                               </div>
                               <div class="media-body">
-                                <a href="#" class="anchor-username"><h4 class="media-heading">{{ $data['post']->title }}</h4></a> 
+                                <a href="<?php echo '/'.$data['page']->uri.'/post/'.$data['post']->uri; ?>" class="anchor-username"><h4 class="media-heading">{{ $data['post']->title }}</h4></a> 
                                 <a href="#" class="anchor-time">51 mins</a>
                               </div>
                             </div>
@@ -34,7 +34,7 @@
 
 if ($admin)
 echo '                            
-    <form class="pull-right" action="/'.$data['page']->id.'/post/'.$data['post']->id.'" method="post">
+    <form class="pull-right" action="/'.$data['page']->uri.'/post/'.$data['post']->uri.'" method="post">
         <input type="hidden" name="_token" value="'.csrf_token().'">
         <input type="hidden" name="_method" value="DELETE" >
         <input class="btn btn-sm" type="submit" value="delete " >
@@ -54,7 +54,7 @@ echo '
                             <li><a href="#"><i class="glyphicon glyphicon-thumbs-up"></i> Like</a></li>
                             <li><a href="#"><i class="glyphicon glyphicon-share-alt"></i> Share</a></li>
                             <li>                                
-                                <form action="/{{ $data['page']->id }}/post/{{ $data['post']->id }}/comment" method="post">
+                                <form action="/{{ $data['page']->uri }}/post/{{ $data['post']->uri }}/comment" method="post">
                                     <div class="input-group">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="hidden" name="page_id" value="{{ $data['page']->id }}">
@@ -91,7 +91,7 @@ echo '
                 ';
                 if ($admin)
 echo '                            
-    <form class="pull-right" action="/'.$data['page']->id.'/post/'.$data['post']->id.'/comment/'.$comment->id.'" method="post">
+    <form class="pull-right" action="/'.$data['page']->uri.'/post/'.$data['post']->uri.'/comment/'.$comment->id.'" method="post">
         <input type="hidden" name="_token" value="'.csrf_token().'">
         <input type="hidden" name="_method" value="DELETE" >
         <input class="btn btn-sm" type="submit" value="delete " >

@@ -42,8 +42,10 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $uri = lcfirst(str_replace(' ','',$request->input('title')));
         $data = array(
             'title' => $request->input('title'),
+            'uri' => $uri,
             'content' => $request->input('content'),
             'page_id' => $request->input('page_id')
         );
@@ -58,8 +60,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($pageId, $postId)
+    public function show($pageUri, $postUri)
     {
+        $pageId = DB::table('pages')->where('uri', $pageUri)->first()->id;
+        $postId = DB::table('page_post')->where('uri', $postUri)->first()->id;
         $post = DB::table('page_post')->where([
             ['id', '=', $postId],
             ['page_id', '=', $pageId],
@@ -113,7 +117,7 @@ class PostController extends Controller
      */
     public function destroy($pageId, $id)
     {
-        DB::table("page_post")->where('id', $id)->delete();
+        DB::table("page_post")->where('uri', $id)->delete();
         return redirect('/'. $pageId.'/post');
     }
 }

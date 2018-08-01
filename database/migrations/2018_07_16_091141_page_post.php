@@ -16,6 +16,7 @@ class PagePost extends Migration
         Schema::create('page_post', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
+            $table->string('uri');
             $table->string('content');
             $table->string('page_id');
             $table->timestamps();

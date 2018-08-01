@@ -30,3 +30,6 @@ Route::resource('/{pageId}/showcase', 'ShowcaseController');
 
 Route::resource('/{pageId}/post', 'PostController');
 Route::resource('/{pageId}/post/{postId}/comment', 'CommentController');
+
+// messages
+Route::resource('/home/messages', 'MessageController');

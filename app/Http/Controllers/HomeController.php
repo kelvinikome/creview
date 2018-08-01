@@ -25,8 +25,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user_id = Auth::id();
-        $pages = DB::table('pages')->where('author_id', $user_id)->get();
-        return view('home')->with('pages', $pages);
+        return view('feeds.index');
     }
 }

@@ -1,10 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container  padding-top">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-        <div class="panel panel-default">
+    <div class="padding-top">
+        <div class="col-md-12 panel panel-default">
           <div class="panel-heading">
               <a href="/home/page/create" class="pull-right">
                 <button class="btn btn-sm btn-primary">Create page</button>
@@ -30,8 +28,5 @@
               </div>
             </div>
    		</div>
-
-        </div>
     </div>
-</div>
 @endsection

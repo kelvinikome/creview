@@ -89,10 +89,18 @@
      </div>	
 </div>
     <div id="app">
-
-        <main class="py-4">
-            @yield('content')
-        </main>
+        <div class="col-md-2 padding-top">
+            <ul class="list-group">
+                <li class="list-group-item"><a href="/home">Home</a></li>
+                <li class="list-group-item"><a href="/home/messages">Messages</a></li>
+                <li class="list-group-item"><a href="/home/page">My pages</a></li>
+            </ul>
+        </div>
+        <div class="col-md-5">
+            <main class="py-4">
+                @yield('content')
+            </main>
+        </div>
     </div>
 </body>
 </html>

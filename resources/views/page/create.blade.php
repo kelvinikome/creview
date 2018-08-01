@@ -1,10 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container padding-top">
-    <div class="row justify-content-center">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel">
+<div class="padding-top"></div>
+            <div class="col-md-12 panel">
                 <div class="panel-heading"><h4>Create Page</h4></div>
 
                 <div class="panel-body">
@@ -38,7 +36,4 @@
                     </form>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
 @endsection

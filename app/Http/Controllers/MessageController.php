@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
 
-class CommentController extends Controller
+class MessageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +13,7 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        echo ' Still under contruction';
     }
 
     /**
@@ -24,7 +23,7 @@ class CommentController extends Controller
      */
     public function create()
     {
-
+        //
     }
 
     /**
@@ -35,16 +34,7 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        $page = DB::table('pages')->where('id', $request->input('page_id'))->first();
-        $post = DB::table('page_post')->where('id', $request->input('post_id'))->first();
-        $data = array(
-            'content' => $request->input('content'),
-            'page_id' => $request->input('page_id'),
-            'post_id' => $request->input('post_id')
-        );
-        DB::table('page_comment')->insert($data);
-
-        return redirect('/'.$page->uri.'/post/'.$post->uri);
+        //
     }
 
     /**
@@ -87,11 +77,8 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($pageId, $postId, $id)
+    public function destroy($id)
     {
-        $comment = DB::table('page_comment')->where('id', $id)->first();
-        DB::table("page_comment")->where('id', $id)->delete();
-        //echo $comment->page_id;
-        return redirect('/'. $pageId.'/post/'.$postId);
+        //
     }
 }
