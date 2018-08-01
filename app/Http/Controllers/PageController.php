@@ -50,7 +50,7 @@ class PageController extends Controller
         );
         DB::table('pages')->insert($data);
 
-        return redirect('/home');
+        return redirect('/home/page');
     }
 
     /**
@@ -126,6 +126,6 @@ class PageController extends Controller
     {
         DB::table("page_post")->where('page_id', $id)->delete();
         DB::table("pages")->where('id', $id)->delete();
-        return redirect('/home');
+        return redirect('/home/page');
     }
 }
