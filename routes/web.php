@@ -33,3 +33,6 @@ Route::resource('/{pageId}/post/{postId}/comment', 'CommentController');
 
 // messages
 Route::resource('/home/messages', 'MessageController');
+
+// search
+Route::resource('/search', 'SearchController');

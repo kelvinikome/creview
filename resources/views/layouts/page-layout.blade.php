@@ -36,9 +36,10 @@
       
         </div>
         <div class="collapse navbar-collapse" id="navbar-collapse1">
-          <form class="navbar-form pull-left">
+          <form class="navbar-form pull-left" action="/search" method="post">
+              <input type="hidden" name="_token" value="{{ csrf_token() }}">
               <div class="input-group" style="max-width:470px;">
-                <input class="form-control" placeholder="Search" name="srch-term" id="srch-term" type="text">
+                <input class="form-control" placeholder="Search" name="query" id="srch-term" type="text">
                 <div class="input-group-btn">
                   <button class="btn btn-default btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                 </div>
