@@ -53,6 +53,25 @@ echo '
                         <ul class="row list-unstyled">
                             <li><a href="#"><i class="glyphicon glyphicon-thumbs-up"></i> Like</a></li>
                             <li><a href="#"><i class="glyphicon glyphicon-share-alt"></i> Share</a></li>
+                            <li>
+                                <div class="post-rating-container">
+                                    <button type="button" class="btnrating btn btn-default btn-sm" data-attr="1" id="rating-star-1">
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                    </button>
+                                    <button type="button" class="btnrating btn btn-default btn-sm" data-attr="2" id="rating-star-2">
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                    </button>
+                                    <button type="button" class="btnrating btn btn-default btn-sm" data-attr="3" id="rating-star-3">
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                    </button>
+                                    <button type="button" class="btnrating btn btn-default btn-sm" data-attr="4" id="rating-star-4">
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                    </button>
+                                    <button type="button" class="btnrating btn btn-default btn-sm" data-attr="5" id="rating-star-5">
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </li>
                             <li>                                
                                 <form action="/{{ $data['page']->uri }}/post/{{ $data['post']->uri }}/comment" method="post">
                                     <div class="input-group">

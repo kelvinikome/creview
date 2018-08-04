@@ -18,7 +18,7 @@ class PostController extends Controller
         $page = DB::table('pages')->where('uri', $id)->first();
         $data = [
             'page' => $page,
-            'posts' => DB::table('page_post')->where('page_id', $id)->get(),
+            'posts' => DB::table('page_post')->where('page_id', $page->id)->get(),
             'user' => Auth::user()
         ];
         return view('page.post.index')->with('data', $data);
