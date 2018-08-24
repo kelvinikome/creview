@@ -7,7 +7,7 @@
 
                 <div class="panel-body">
                     
-                    <form action="/home/page" method="post">
+                    <form action="/pages" method="post">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="author_id" value="{{ $user_id }}">
                         <div class="form-group">

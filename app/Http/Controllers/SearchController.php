@@ -14,7 +14,7 @@ class SearchController extends Controller
      */
     public function index()
     {
-
+        return view('search.index');
     }
 
     /**
@@ -46,10 +46,18 @@ class SearchController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        $data = DB::table('pages')->get();
-        return view('search.index')->with('data', $data);
+        $query = $request->input('query');
+
+        // $page = DB::table('pages')->where('uri', '$id')->first();
+        // $data = [
+        //     'page' => $page,
+        //     'posts' => DB::table('page_post')->where('page_id', $page->id)->get(),
+        //     'user' => Auth::user()
+        // ];
+
+        return view('search.index');
     }
 
     /**

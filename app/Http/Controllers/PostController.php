@@ -2,122 +2,117 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\PostReply;
+use App\Post;
+use App\Tag;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use DB;
+use Illuminate\Support\Facades\Mail;
 
 class PostController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Create a new controller instance.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-    public function index($id)
+    public function __construct()
     {
-        $page = DB::table('pages')->where('uri', $id)->first();
-        $data = [
-            'page' => $page,
-            'posts' => DB::table('page_post')->where('page_id', $page->id)->get(),
-            'user' => Auth::user()
-        ];
-        return view('page.post.index')->with('data', $data);
+        $this->middleware('auth');
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Store a new post.
      *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @return Response
      */
     public function store(Request $request)
     {
-        $uri = lcfirst(str_replace(' ','',$request->input('title')));
-        $data = array(
-            'title' => $request->input('title'),
-            'uri' => $uri,
-            'content' => $request->input('content'),
-            'page_id' => $request->input('page_id')
-        );
-        DB::table('page_post')->insert($data);
+        $this->validate($request, [
+            'body' => 'required|max:255',
+        ]);
 
-        return redirect('/'. $request->input('uri'));
+        $postBody = $this->parseUsernames($request->body);
+        $parsed = $this->parseTags($postBody);
+
+        list($body, $tagIds) = $parsed;
+
+        $post = Post::create([
+            'user_id' => auth()->user()->id,
+            'body' => $body
+        ]);
+
+        empty($tagIds) ? : $post->tags()->sync(array_unique($tagIds));
+
+        return back();
     }
 
     /**
-     * Display the specified resource.
+     * Remove the specified post from storage.
      *
-     * @param  int  $id
+     * @param  Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show($pageUri, $postUri)
+    public function destroy(Post $post)
     {
-        $pageId = DB::table('pages')->where('uri', $pageUri)->first()->id;
-        $postId = DB::table('page_post')->where('uri', $postUri)->first()->id;
-        $post = DB::table('page_post')->where([
-            ['id', '=', $postId],
-            ['page_id', '=', $pageId],
-        ])->first();
-
-        $page = DB::table('pages')->where('id', $pageId)->first();
-        
-        $comments = DB::table('page_comment')->where([
-            ['post_id', '=', $postId],
-            ['page_id', '=', $pageId],
-        ])->get();
-
-        $data = [
-            'page' => $page,
-            'post' => $post,
-            'comments' => $comments,
-            'user' => Auth::user()
-        ];
-
-        return view ('page.post.show')->with('data', $data);
+        $post->delete();
+        return back();
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Parse usernames from post body.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  string $postBody
+     * @return string
      */
-    public function edit($id)
+    private function parseUsernames($postBody)
     {
-        //
+        preg_match_all("/@(\\w+)/", $postBody, $usernames);
+
+        if (!empty($usernames)) {
+            foreach ($usernames[1] as $username) {
+                if (!User::whereUsername($username)->get()->isEmpty()) {
+                    $postBody = preg_replace("/(@\\w+)/", '<a href="/' . $username . '">${1}</a>', $postBody);
+                    // Notify
+                    $recipient = User::whereUsername($username)->first();
+                    $sender = Auth::user();
+                    Mail::to($recipient)->send(new PostReply($recipient, $sender));
+                }
+            }
+        }
+
+        return $postBody;
     }
 
     /**
-     * Update the specified resource in storage.
+     * Parse hash tags from post body.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  string $postBody
+     * @return array
      */
-    public function update(Request $request, $id)
+    private function parseTags($postBody)
     {
-        //
-    }
+        preg_match_all("/#(\\w+)/", $postBody, $tagnames);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($pageId, $id)
-    {
-        DB::table("page_post")->where('uri', $id)->delete();
-        return redirect('/'. $pageId.'/post');
+        $tagIds = [];
+
+        if (!empty($tagnames[1])) {
+            foreach ($tagnames[1] as $tagname) {
+                if (Tag::whereName($tagname)->get()->isEmpty()) {
+                    $tag = new Tag();
+                    $tag->name = $tagname;
+                    $tag->save();
+                    $tagIds[] = $tag->id;
+                } else {
+                    $tag = Tag::whereName($tagname)->first();
+                    $tagIds[] = $tag->id;
+                }
+                $postBody = preg_replace("/(#\\w+)/", '<a href="/tags/' . $tag->id . '">${1}</a>', $postBody);
+            }
+        }
+
+        return [$postBody, $tagIds];
     }
 }

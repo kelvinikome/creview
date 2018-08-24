@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
+use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use DB;
 
 class HomeController extends Controller
 {
@@ -19,12 +20,20 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show user news feed.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('feeds.index');
+        $followees = Auth::user()->followees()->pluck('id')->all();
+
+        array_push($followees, Auth::user()->id);
+
+        $posts = Post::whereIn('user_id', $followees)->latest()->paginate(10);
+
+        $tags = Tag::latest()->limit(5)->get();
+
+        return view('home', ['user' => Auth::user(), 'posts' => $posts, 'tags' => $tags]);
     }
 }

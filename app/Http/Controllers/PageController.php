@@ -2,12 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
+use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use DB;
 
 class PageController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -50,7 +61,7 @@ class PageController extends Controller
         );
         DB::table('pages')->insert($data);
 
-        return redirect('/home/page');
+        return redirect('/pages');
     }
 
     /**
@@ -126,6 +137,6 @@ class PageController extends Controller
     {
         DB::table("page_post")->where('page_id', $id)->delete();
         DB::table("pages")->where('id', $id)->delete();
-        return redirect('/home/page');
+        return redirect('/pages');
     }
 }

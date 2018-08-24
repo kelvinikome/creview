@@ -2,83 +2,89 @@
 
 namespace App\Http\Controllers;
 
+use App\Message;
+use App\Tag;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Create a new controller instance.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-    public function index()
+    public function __construct()
     {
-        echo ' Still under contruction';
+        $this->middleware('auth');
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Store a message.
      *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'to' => 'required|integer',
+            'body' => 'required|max:255',
+        ]);
+
+        Message::create([
+            'from_user_id' => Auth::id(),
+            'to_user_id' => $request->to,
+            'body' => $request->body
+        ]);
+
+        return back();
     }
 
     /**
-     * Display the specified resource.
+     * Inbox messages.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return $this
      */
-    public function show($id)
+    public function inbox()
     {
-        //
+        $messages = Auth::user()->inbox()->latest()->get();
+
+        $user = Auth::user();
+
+        $recipients = User::where('id', '!=', Auth::id())->get();
+
+        $tags = Tag::latest()->limit(5)->get();
+
+        return view('messages')->with([
+            'messages' => $messages,
+            'user' => $user,
+            'tags' => $tags,
+            'recipients' => $recipients
+        ]);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Outbox messages.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return $this
      */
-    public function edit($id)
+    public function outbox()
     {
-        //
-    }
+        $messages = Auth::user()->outbox()->latest()->get();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+        $user = Auth::user();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $recipients = User::where('id', '!=', Auth::id())->get();
+
+        $tags = Tag::latest()->limit(5)->get();
+
+        return view('messages')->with([
+            'messages' => $messages,
+            'user' => $user,
+            'tags' => $tags,
+            'recipients' => $recipients
+        ]);
     }
 }

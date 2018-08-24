@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ config('app.locale') }}">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,9 +8,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Creview') }}</title>
 
-    <!-- Scripts -->
     <script src="{{ asset('js/jquery.js') }}" defer></script>
     <script src="{{ asset('js/bootstrap.js') }}" defer></script>
 
@@ -21,90 +20,147 @@
     <!-- Styles -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
+    <script>
+        window.Laravel = {!! json_encode([
+            'csrfToken' => csrf_token(),
+        ]) !!};
+    </script>
 </head>
 <body>
+    <div id="">
+        <nav class="navbar navbar-default navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
 
-        <div class="navbar navbar-fixed-top header">
- 	<div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="{{ url('/home') }}">
-                    {{ config('app.name', 'Laravel') }}
-            </a>
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse1">
-          <i class="glyphicon glyphicon-search"></i>
-          </button>
-      
-        </div>
-        <div class="collapse navbar-collapse" id="navbar-collapse1">
-          <form class="navbar-form pull-left" action="/search" method="post">
-              <input type="hidden" name="_token" value="{{ csrf_token() }}">
-              <div class="input-group" style="max-width:470px;">
-                <input class="form-control" placeholder="Search" name="query" id="srch-term" type="text">
-                <div class="input-group-btn">
-                  <button class="btn btn-default btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
+                        <span class="sr-only">Toggle Navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <a class="navbar-brand" href="{{ url('/') }}">
+                        {{ config('app.name', 'Creview') }}
+                    </a>
                 </div>
-              </div>
-          </form>
-          <ul class="nav navbar-nav navbar-right">
-            @guest
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-            </li>
-            @else
-             <li><a href="{{ url('/home') }}"><i class="glyphicon glyphicon-home"></i></a></li>
-             <li class="">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-bell"></i></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#"><span class="badge pull-right">40</span>Link</a></li>
-                  <li><a href="#"><span class="badge pull-right">2</span>Link</a></li>
-                  <li><a href="#"><span class="badge pull-right">0</span>Link</a></li>
-                  <li><a href="#"><span class="label label-info pull-right">1</span>Link</a></li>
-                  <li><a href="#"><span class="badge pull-right">13</span>Link</a></li>
-                </ul>
-             </li>
-             <li><a class="" href="#" id="btnToggle"><i class="glyphicon glyphicon-th-large"></i></a></li>
 
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                <div class="collapse navbar-collapse" id="app-navbar-collapse">
+
+                    <ul class="nav navbar-nav">
+                        &nbsp;
+                    </ul>
+
+                    @if (!Auth::guest())
+                    <form class="navbar-form pull-left" action="/search/a=s" method="get">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <div class="input-group" style="max-width:470px;">
+                            <input class="form-control" placeholder="Search" name="query" type="text">
+                            <div class="input-group-btn">
+                            <button class="btn btn-default btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                    @endif
+
+                    <!-- Right Side Of Navbar -->
+                    <ul class="nav navbar-nav navbar-right">
+                        <!-- Authentication Links -->
+                        @if (Auth::guest())
+                            <li><a href="{{ route('login') }}">Login</a></li>
+                            <li><a href="{{ route('register') }}">Register</a></li>
+                        @else
+
+                            <li><a href="{{ url('/') }}"><i class="glyphicon glyphicon-home"></i></a></li>
+                            <li class="">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-bell"></i></a>
+                                <ul class="dropdown-menu">
+                                <li><a href="#"><span class="badge pull-right">40</span>Link</a></li>
+                                <li><a href="#"><span class="badge pull-right">2</span>Link</a></li>
+                                <li><a href="#"><span class="badge pull-right">0</span>Link</a></li>
+                                <li><a href="#"><span class="label label-info pull-right">1</span>Link</a></li>
+                                <li><a href="#"><span class="badge pull-right">13</span>Link</a></li>
+                                </ul>
+                            </li>
+                            <li><a class="" href="#" id="btnToggle"><i class="glyphicon glyphicon-th-large"></i></a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="position:relative; padding-left:50px;">
+                                    <img src="/uploads/avatars/{{ Auth::user()->avatar }}" style="width:32px; height:32px; position:absolute; top:10px; left:10px; border-radius:50%">
+                                    <!-- {{ Auth::user()->name }} --> <span class="caret"></span>
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="{{ url(Auth::user()->username) }}">Profile</a></li>
+                                    <li>
+                                        <a href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
+                                            Logout
+                                        </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+                                    </li>
+                                </ul>
                             </li>
-                        @endguest
-           </ul>
-        </div>	
-     </div>	
-</div>
-    <div id="app">
-        @guest
-        @else
-        <div class="col-md-2 padding-top">
-            <ul class="list-group">
-                <li class="list-group-item"><a href="/home">Home</a></li>
-                <li class="list-group-item"><a href="/home/messages">Messages</a></li>
-                <li class="list-group-item"><a href="/home/page">My pages</a></li>
-            </ul>
+                        @endif
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                        <br>
+                        <br>
+                        <ul class="list-group">
+                            <li class="list-group-item"><a href="/">Home</a></li>
+                            <li class="list-group-item"><a href="/messages">Messages</a></li>
+                            <li class="list-group-item"><a href="/pages">My pages</a></li>
+                        </ul>
+                        <div class="btn-group btn-group-justified btn-group-sm" role="group" aria-label="...">
+                            <a role="button" class="btn btn-default" href="/inbox">Inbox</a>
+                            <a role="button" class="btn btn-default" href="/outbox">Outbox</a>
+                        </div>
+                    <br>
+                </div>
+            </div>
         </div>
-        @endguest
-        <div class="col-md-5">
-            <main class="py-4">
-                @yield('content')
-            </main>
+        <div class="col-md-6">
+            @yield('content')
+        </div>
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">Trends tags</div>
+
+                <div class="panel-body">
+                        <p><a href="#">$tag->name</a></p>
+                    
+                </div>
+            </div>
         </div>
     </div>
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="/js/jquery.jscroll.min.js"></script>
+
+    <script type="text/javascript">
+        $('ul.pagination').hide();
+        $(function() {
+            $('.infinite-scroll').jscroll({
+                autoTrigger: true,
+                loadingHtml: '<p class="text-center"><i class="fa fa-spinner fa-spin" style="font-size:24px"></i></p>',
+                padding: 0,
+                nextSelector: '.pagination li.active + li a',
+                contentSelector: 'div.infinite-scroll',
+                callback: function() {
+                    $('ul.pagination').remove();
+                }
+            });
+        });
+    </script>
+
 </body>
 </html>

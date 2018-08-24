@@ -11,28 +11,70 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('/home/page/create', 'PageController');
-Route::resource('/home/page', 'PageController');
+/**
+ * Feed
+ */
+Route::get('/', 'HomeController@index');
 
-// page
-Route::get('/{page}', 'PageController@show');
-Route::get('/{pageId}/about', 'PageController@showAbout');
+/**
+ * Entity (Page/User)
+ */
+Route::resource('/pages', 'PageController');
+Route::get('/{id}', 'EntityController@getById');
 
-// showcase
-Route::resource('/{pageId}/showcase', 'ShowcaseController');
+/**
+ * Search
+ */
+Route::get('/search/{term}', 'SearchController@show');
 
-Route::resource('/{pageId}/post', 'PostController');
-Route::resource('/{pageId}/post/{postId}/comment', 'CommentController');
+/**
+ * Page Posts
+ */
+Route::resource('/{pageId}/post', 'PagePostController');
 
-// messages
-Route::resource('/home/messages', 'MessageController');
+/**
+ * Posts
+ */
+Route::post('/posts', 'PostController@store');
 
-// search
-Route::resource('/search', 'SearchController');
+Route::delete('/posts/{post}', 'PostController@destroy');
+
+/**
+ * Follows
+ */
+Route::post('/follows/{user}', 'FollowController@follow');
+
+Route::delete('/follows/{user}', 'FollowController@unfollow');
+
+Route::get('/{user}/followers', 'FollowController@followers');
+
+Route::get('/{user}/followees', 'FollowController@followees');
+
+/**
+ * Likes
+ */
+Route::get('/posts/{post}/like', 'LikeController@likePost');
+
+/**
+ * Tags
+ */
+Route::get('/tags/{tag}', 'TagController@show');
+
+/**
+ * Messages
+ */
+Route::get('/inbox', 'MessageController@inbox');
+
+Route::get('/outbox', 'MessageController@outbox');
+
+Route::post('/messages', 'MessageController@store');
+
+/**
+ * Profile
+ */
+Route::get('/{user}', 'ProfileController@show');
+
+Route::post('/profile', 'ProfileController@updateAvatar');
+

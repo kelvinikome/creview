@@ -15,7 +15,13 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'username',
+        'email',
+        'birthday',
+        'location',
+        'website',
+        'password',
     ];
 
     /**
@@ -26,4 +32,84 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'username';
+    }
+
+    /**
+     * Get the posts for the user.
+     *
+     * @return HasMany
+     */
+    public function posts()
+    {
+        return $this->hasMany('App\Post');
+    }
+
+    /**
+     * Get the followers for the user.
+     *
+     * @return HasMany
+     */
+    public function followers()
+    {
+        return $this->belongsToMany(
+            'App\User',
+            'follows',
+            'followee_id',
+            'follower_id'
+        )->withTimestamps();
+    }
+
+    /**
+     * Get the followees for the user.
+     *
+     * @return HasMany
+     */
+    public function followees()
+    {
+        return $this->belongsToMany(
+            'App\User',
+            'follows',
+            'follower_id',
+            'followee_id'
+        )->withTimestamps();
+    }
+
+    /**
+     * Get the liked posts.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function likedPosts()
+    {
+        return $this->morphedByMany('App\Post', 'likeable');
+    }
+
+    /**
+     * Outbox of the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function outbox()
+    {
+        return $this->hasMany('App\Message', 'from_user_id', 'id');
+    }
+
+    /**
+     * Inbox of the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function inbox()
+    {
+        return $this->hasMany('App\Message', 'to_user_id', 'id');
+    }
 }
